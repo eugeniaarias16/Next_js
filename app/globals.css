@@ -22,11 +22,11 @@ body{
     height: 8px; 
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: var(--color-brownn); 
+    background: var(--color-green); 
     border-radius: 10px; 
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: var(--color-gold); 
+    background: var( --color-ligth-brown); 
   }
   .custom-scrollbar::-webkit-scrollbar-track {
     background: var(--color-light-sand); 

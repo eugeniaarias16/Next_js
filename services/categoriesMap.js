@@ -8,7 +8,7 @@ export const categoriesMap = [
         { name: "Blush", link: "/sub-category/blush", apiCall: "product_type=blush" },
         { name: "Bronzer", link: "/sub-category/bronzer", apiCall: "product_type=bronzer" },
         { name: "Foundation", link: "/sub-category/foundation", apiCall: "product_type=foundation" },
-        { name: "Concealer", link: "/sub-category/concealer", apiCall: "product_type=concealer" }
+        { name: "Concealer", link: "/sub-category/concealer", apiCall: "product_category=concealer&product_type=foundation" }
       ]
     },
     { 

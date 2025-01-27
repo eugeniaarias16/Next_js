@@ -36,26 +36,31 @@ export default async function SubCategory({ SubCategory }) {
   const subCategoryImages = await fetchSubCategoryImages();
 
   return (
-    <div className="w-9/10 flex m-auto gap-4 flex-wrap justify-center">
-      {SubCategory.map((item) => (
-        <Link
-          href={item.link}
-          key={item.name}
-          className="w-1/4 h-[250px] bg-light-sand rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 flex flex-col relative"
-        >
-        <div>
-            <Image
-              src={subCategoryImages[item.name] || '/placeholder-image.png'}
-              alt={item.name}
-              fill
-              sizes='9/10'
-              className="object-contain"
-              />
-        </div>    
-          
-          <h3 className="text-center text-ligth-brown bg-green font-semibold ">{item.name}</h3>
-        </Link>
-      ))}
-    </div>
+    <div className="w-9/10 flex  gap-4  justify-center ">
+  {SubCategory.map((item) => (
+    <Link
+      href={item.link }
+      key={item.name}
+      className="w-1/4 h-[250px] bg-light-sand rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 flex flex-col"
+    >
+      {/* Contenedor de la imagen */}
+      <div className="w-full h-[90%] bg-white flex items-center justify-center">
+        <Image
+          src={subCategoryImages[item.name] || '/placeholder-image.png'}
+          alt={item.name}
+          height={200}
+          width={200}
+          className="object-contain max-h-full max-w-full"
+        />
+      </div>
+
+      {/* Título */}
+      <h3 className="text-center text-sand font-semibold h-[10%] w-full flex items-center justify-center bg-green">
+        {item.name}
+      </h3>
+    </Link>
+  ))}
+</div>
+
   );
 }
