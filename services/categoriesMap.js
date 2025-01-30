@@ -1,3 +1,11 @@
+/* 
+
+La API makeup no cuenta con un organizacion tan clara de categorias y sub categorias, 
+por lo que hice un array con las mismas, que me ayude a maketar mi pagina.
+
+*/
+
+
 export const categoriesMap = [
     { 
       name: "Face", 

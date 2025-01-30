@@ -1,20 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { categoriesMap } from '@/services/categoriesMap';
 
 export default function ByCategory() {
-  const categories = [
-    { name: "Face", link: "/category/Face", image: "/face-category.jpg" },
-    { name: "Lips", link: "/category/Lips", image: "/lips-category.jpg" },
-    { name: "Eyes", link: "/category/Eyes", image: "/eyes-category.jpg" },
-    { name: "Nails", link: "/category/Nails", image: "/nails-category.jpg" },
-  ];
+  
 
   return (
     <div className="grid grid-cols-2 gap-5 p-5 bg-color-light-sand">
-      {categories.map((category) => (
+      {categoriesMap.map((category) => (
         <div
-          key={category.name}
+          key={category.id}
           className="relative group w-full h-[250px] rounded-lg overflow-hidden shadow-lg bg-color-sand transition-transform transform hover:scale-105"
         >
           <Link href={`/category/${category.name}`}>
@@ -36,3 +32,4 @@ export default function ByCategory() {
     </div>
   );
 }
+

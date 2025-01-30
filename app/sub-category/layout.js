@@ -1,6 +1,10 @@
 import React from 'react'
 
 export default function SubCatLayout({children}) {
+  
+  
+  
+  
   return (
     <div className="grid grid-cols-4 h-screen mt-12">
       

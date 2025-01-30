@@ -1,6 +1,8 @@
 import { categoriesMap } from "@/services/categoriesMap";
 import apiService from "@/services/apiService";
 import Cards from "@/components/Cards";
+import React from 'react';
+
 
 export default async function Page({ params }) {
   const { "subcategory-name": subcategoryName } = params;
