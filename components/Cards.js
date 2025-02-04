@@ -3,14 +3,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { normalizeImageUrl } from "@/services/normalizeImageUrl";
 import { generateStars, generatePrice } from "@/services/generateStars";
-export default function Cards({ product }) {
-    
 
+
+
+export default function Cards({ product }) {
+  
   return (
     <Link
       key={product.id}
       href={`/product/${product.id}`}
-      className="slider-card bg-white rounded-xl shadow-md w-[200px] flex-none h-[300px] flex flex-col items-center overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
+      className="  bg-white rounded-xl shadow-md w-[200px] flex-none h-[300px] flex flex-col items-center overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
     >
       {/* Imagen del Producto */}
       <div className="image-container relative w-[150px] h-[150px] overflow-hidden flex items-center justify-center">
@@ -45,3 +47,4 @@ export default function Cards({ product }) {
     </Link>
   );
 }
+

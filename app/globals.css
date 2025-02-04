@@ -6,7 +6,7 @@
   --color-gold: #eec364;
   --color-ligth-brown: #b48c5c;
   --color-brownn: #362e2c;
-  --color-green: #3c4643;
+  --color-green: #2C4F3A;
   
 }
 
@@ -22,11 +22,12 @@ body{
     height: 8px; 
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: var(--color-green); 
+    background: linear-gradient(to top, #ebd8c3, #e1c9af, #d7bb9b, #cdad88, #c29f75, #c29f75, #c29f75, #c29f75, #cdad88, #d7bb9b, #e1c9af, #ebd8c3); 
     border-radius: 10px; 
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: var( --color-ligth-brown); 
+    background: linear-gradient(to top, #ebd8c3, #e1c9af, #d7bb9b, #cdad88, #c29f75, #c29f75, #c29f75, #c29f75, #cdad88, #d7bb9b, #e1c9af, #ebd8c3);
+    
   }
   .custom-scrollbar::-webkit-scrollbar-track {
     background: var(--color-light-sand); 
@@ -37,4 +38,13 @@ body{
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.266) 80%, transparent);
   }
 
-  
+  .gradient{
+    background-image: linear-gradient(to top, #ebd8c3, #e1c9af, #d7bb9b, #cdad88, #c29f75, #b48f69, #a5805d, #977152, #805e4a, #674d41, #4f3d37, #362e2c);
+    opacity: 0.6;
+  }
+
+  .gradient-ligth{
+    background-image: linear-gradient(to top, #ebd8c3, #e1c9af, #d7bb9b, #cdad88, #c29f75, #c29f75, #c29f75, #c29f75, #cdad88, #d7bb9b, #e1c9af, #ebd8c3);
+    opacity: 0.6;
+    
+  }
