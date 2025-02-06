@@ -1,3 +1,4 @@
+
 export const generateStars = (rating) => {
     let finalRating=0;
     if(!rating){ //simulamos puntaje de rating si este = "null"

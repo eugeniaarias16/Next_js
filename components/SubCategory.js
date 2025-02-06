@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
-import { normalizeImageUrl } from '@/services/normalizeImageUrl';
+import { normalizeImageUrl } from 'services/normalizeImageUrl';
 import Link from 'next/link';
-import apiService from '@/services/apiService';
+import { getProductswithFilters } from 'actions/getProductswithFilters';
 
 export default async function SubCategory({ SubCategory }) {
   if (!SubCategory || SubCategory.length === 0) {
@@ -19,10 +19,10 @@ export default async function SubCategory({ SubCategory }) {
 
     for (const item of SubCategory) {
       try {
-        const subCat = await apiService(item.apiCall); // Llamada a la API para obtener datos
-        const firstObj = subCat?.[2] || subCat?.[1]  ; // Obtenemos el primer objeto válido
+        const subCat = await getProductswithFilters(item.apiCall); // Llamada a la API para obtener datos
+        const firstObj = subCat?.[2] || subCat?.[1]  ; 
         const subCatImg = normalizeImageUrl(firstObj.api_featured_image); // Normalizamos la URL de la imagen
-        images[item.name] = subCatImg || '/placeholder-image.png'; // Almacenamos la imagen o una predeterminada
+        images[item.name] = subCatImg || '/placeholder-image.png';
       } catch (error) {
         console.error(`Error fetching data for ${item.name}:`, error);
         images[item.name] = '/placeholder-image.png'; // Imagen predeterminada en caso de error

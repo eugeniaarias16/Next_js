@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react';
-import { categoriesMap } from '@/services/categoriesMap';
+import { categoriesMap } from 'services/categoriesMap';
 
 export default function NavBar() {
 

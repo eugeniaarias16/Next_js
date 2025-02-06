@@ -1,10 +1,9 @@
-import ByCategory from "@/components/ByCategory";
-import SubCategory from "@/components/SubCategory";
+import SubCategory from "components/SubCategory";
 import React from "react";
-import { categoriesMap } from "@/services/categoriesMap";
-import SliderCards from "@/components/SliderCards";
-import apiService from "@/services/apiService";
+import { categoriesMap } from "services/categoriesMap";
+import SliderCards from "components/SliderCards";
 import Image from "next/image";
+import { fetchSubCategoryData } from "services/subcategoryApiCalls";
 
 export default async function CategoryPage({ params }) {
   const { "category-name": categoryName } = params;
@@ -22,29 +21,13 @@ export default async function CategoryPage({ params }) {
     );
   }
 
-  // Función para obtener datos de las subcategorías
-  const fetchSubCategoryData = async () => {
-    try {
-      return await Promise.all(
-        selectedCategory.SubCategory.map(async (sub) => {
-          const products = await apiService(
-            `${sub.apiCall}&rating_greater_than_4.5`
-          );
-          return { name: sub.name, products, link: sub.link };
-        })
-      );
-    } catch (error) {
-      console.error("Error fetching subcategory data:", error);
-      return [];
-    }
-  };
 
-  const subCategoryData = await fetchSubCategoryData();
+  const subCategoryData = await fetchSubCategoryData({selectedCategory});
 
   return (
     <div className="flex flex-col min-h-screen text-center items-center">
       {/* Título de la categoría */}
-      <h2 className="text-amber-800 mt-20 text-5xl">{categoryName}</h2>
+      <h2 className="text-amber-800 mt-20 text-5xl mb-10">{categoryName}</h2>
 
       {/* Render de las subcategorías */}
       <SubCategory SubCategory={selectedCategory.SubCategory} />

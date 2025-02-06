@@ -6,7 +6,7 @@ import fs from "fs";
 // Leer el archivo JSON y convertir los datos a objetos de JavaScript antes de subirlos a Firebase
 const loadProductsFromJson = () => {
     try {
-        const rawData = fs.readFileSync("./api/products.json", "utf8"); // ✅ Ruta correcta
+        const rawData = fs.readFileSync("./actions/products.json", "utf8"); 
         const productsArray = JSON.parse(rawData);
         console.log("✅ JSON cargado correctamente");
         return productsArray;
@@ -42,4 +42,3 @@ export async function migrateProducts() {
 migrateProducts();
 
 
-//descarga del json (api externa) y subida del mismo a firebase

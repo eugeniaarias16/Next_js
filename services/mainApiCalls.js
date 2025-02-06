@@ -1,16 +1,25 @@
-import apiService from './apiService';
+import { getProductswithFilters } from 'actions/getProductswithFilters';
 
-export default async function apiCalls() {
-    try {
-        const [Top20RatedProducts, TopLipstick, TopMascaras] = await Promise.all([
-            apiService("rating_greater_than=4.5"),
-            apiService("product_type=lipstick&rating_greater_than=4.5"),
-            apiService("product_type=mascara")
-        ]);
+export const mainApiCalls=async()=> {
+   
+    const Top20RatedProducts= await getProductswithFilters({
+        rating:{operator:">=", value:4.5 }
+    });
+    console.log("Top20",Top20RatedProducts);
 
-        return { Top20RatedProducts, TopLipstick, TopMascaras };
-    } catch (error) {
-        console.error("API Calls Error:", error);
-        return { Top20RatedProducts: [], TopLipstick: [], TopMascaras: [] };
-    }
+    const TopLipstick= await getProductswithFilters({
+        product_type:"lipstick",
+        rating:{operator:">=", value:4.5}
+    });
+   console.log("Top Lipsticks",TopLipstick);
+    
+   const TopMascaras= await getProductswithFilters({
+    product_type:"mascara",
+    rating:{operator:">=", value: 4.5}
+   });
+   console.log("Top Mascaras:",TopMascaras);
+
+   return {Top20RatedProducts, TopLipstick, TopMascaras}
+   
+
 }

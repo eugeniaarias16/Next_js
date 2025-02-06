@@ -1,7 +1,7 @@
-import { categoriesMap } from "@/services/categoriesMap";
-import apiService from "@/services/apiService";
-import Cards from "@/components/Cards";
+import { categoriesMap } from "services/categoriesMap";
+import Cards from "components/Cards";
 import React from 'react';
+import { getProductswithFilters } from "actions/getProductswithFilters";
 
 
 export default async function Page({ params }) {
@@ -14,8 +14,8 @@ export default async function Page({ params }) {
   if (!selectedSubCategory) {
     return <div className="text-center text-red-500">Subcategory not found</div>;
   }
-
-  const data = await apiService(`${selectedSubCategory.apiCall}`, 70);
+  
+  const data = await getProductswithFilters(selectedSubCategory.apiCall, 70);
   console.log("data: ",data)
   const tagList = [
     ...new Set(
@@ -27,8 +27,8 @@ export default async function Page({ params }) {
   ];
 
   return (
-    <div className="p-6">
-      <h2 className="w-full p-5 text-center text-5xl text-brownn">
+    <div >
+      <h2 className="w-full  text-center text-5xl text-brownn">
         {selectedSubCategory.name}
       </h2>
 

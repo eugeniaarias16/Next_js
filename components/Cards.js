@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { normalizeImageUrl } from "@/services/normalizeImageUrl";
-import { generateStars, generatePrice } from "@/services/generateStars";
+import { normalizeImageUrl } from "services/normalizeImageUrl";
+import { generateStars, generatePrice } from "services/generateStars";
 
 
 

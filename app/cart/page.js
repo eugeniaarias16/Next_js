@@ -1,6 +1,6 @@
-import { CartClient } from "@/components/CartClient";
+import { CartClient } from "components/CartClient";
 import React from "react";
-import CartSummery from "@/components/CartSummery";
+import CartSummery from "components/CartSummery";
 
 
 export default function CartPage() {

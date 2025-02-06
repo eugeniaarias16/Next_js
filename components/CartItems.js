@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { normalizeImageUrl } from "@/services/normalizeImageUrl";
+import { normalizeImageUrl } from "services/normalizeImageUrl";
 import { QuantityController } from "./QuantityController";
 import DeleteProductsSection from "./DeleteProducts";
 
