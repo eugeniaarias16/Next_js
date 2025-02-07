@@ -20,6 +20,7 @@ body{
   /* Custom Scrollbar Styles */
   .custom-scrollbar::-webkit-scrollbar {
     height: 8px; 
+    width: 8px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: linear-gradient(to top, #ebd8c3, #e1c9af, #d7bb9b, #cdad88, #c29f75, #c29f75, #c29f75, #c29f75, #cdad88, #d7bb9b, #e1c9af, #ebd8c3); 
@@ -48,3 +49,6 @@ body{
     opacity: 0.6;
     
   }
+
+
+ 

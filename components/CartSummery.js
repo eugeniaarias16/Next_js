@@ -60,7 +60,7 @@ export default function CartSummery() {
   };
 
   return (
-    <div className="w-9/10 bg-sand/50 rounded-2xl h-[500px] border-2 border-brownn/30 drop-shadow-2xl p-6 flex flex-col justify-between">
+    <div className="w-9/10 bg-sand/50 rounded-2xl h-[500px] border-2 border-brownn/30 drop-shadow-2xl p-6 flex flex-col justify-between m-auto">
       {/* Título */}
       <h3 className="bg-ligth-brown/70 text-green font-bold w-9/10 h-12 rounded-2xl text-center m-auto mt-3 text-3xl shadow-lg flex items-center justify-center">
         Purchase Summary

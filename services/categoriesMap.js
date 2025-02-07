@@ -30,6 +30,7 @@ export const categoriesMap = [
       { name: "Lip Liner", link: "/sub-category/lip-liner", apiCall: { product_type: "lip_liner" } },
       { name: "Lip Stain", link: "/sub-category/lip-stain", apiCall: { subcategory: "lip_stain" }}
     ]
+    
   },
   { 
     name: "Eyes", 

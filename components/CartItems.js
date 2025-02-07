@@ -2,22 +2,23 @@ import React from "react";
 import Image from "next/image";
 import { normalizeImageUrl } from "services/normalizeImageUrl";
 import { QuantityController } from "./QuantityController";
-import DeleteProductsSection from "./DeleteProducts";
+import {DeleteProductsSection} from "./DeleteProducts";
 
 export default function CartItems({ item }) {
   return (
     <div className="w-9/10  h-40 bg-ligth-brown/50 rounded-2xl drop-shadow-2xl flex p-4 shadow-lg">
       {/* 📷 Contenedor de la imagen */}
-      <div className="w-1/4 h-full flex items-center">
-        <Image
-          src={normalizeImageUrl(item.api_featured_image)}
-          width={80}
-          height={80}
-          alt={item.name}
-          priority
-          className="object-contain rounded-lg"
-        />
-      </div>
+      <div className="w-1/4 h-full flex items-center justify-center bg-amber-50 p-2">
+  <Image
+    src={normalizeImageUrl(item.api_featured_image)}
+    alt={item.name}
+    priority
+    width={120} // Dejar width y height en 0 para que Next.js ajuste el tamaño correctamente
+    height={120}
+    className="w-full h-auto max-h-[120px] object-contain rounded-lg"
+  />
+</div>
+
 
       {/* 🛍 Info de la tarjeta */}
       <div className="w-3/4 h-full flex flex-col justify-between px-4">

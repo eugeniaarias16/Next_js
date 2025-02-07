@@ -5,11 +5,12 @@ import { getProductswithFilters } from "actions/getProductswithFilters";
 
 
 export default async function Page({ params }) {
-  const { "subcategory-name": subcategoryName } = params;
+  const { "subcategory-name": subcategoryName } = await params;
+  console.log(subcategoryName);
 
   const selectedSubCategory = categoriesMap
     .flatMap((category) => category.SubCategory)
-    .find((subCat) => subCat.name.toLowerCase() === subcategoryName.toLowerCase());
+    .find((subCat) => subCat.link.includes(subcategoryName));
 
   if (!selectedSubCategory) {
     return <div className="text-center text-red-500">Subcategory not found</div>;

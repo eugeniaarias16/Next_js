@@ -23,6 +23,7 @@ export default async function CategoryPage({ params }) {
 
 
   const subCategoryData = await fetchSubCategoryData({selectedCategory});
+  console.log("subCate",subCategoryData);
 
   return (
     <div className="flex flex-col min-h-screen text-center items-center">
