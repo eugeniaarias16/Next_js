@@ -3,7 +3,7 @@ import React from "react";
 import { categoriesMap } from "services/categoriesMap";
 import SliderCards from "components/SliderCards";
 import Image from "next/image";
-import { fetchSubCategoryData } from "services/subcategoryApiCalls";
+import { fetchSubCategoryData } from "services/getSubCategoryData";
 
 export default async function CategoryPage({ params }) {
   const { "category-name": categoryName } = params;
