@@ -19,7 +19,16 @@ export const AsideBar = ({ brands, tags }) => {
   // Manejar cambios en los checkboxes
   const handleCheckboxChange = (event, setState) => {
     const { value, checked } = event.target;
-    setState((prev) => (checked ? [...prev, value] : prev.filter((item) => item !== value)));
+  
+    setState((prev) => {
+      if (checked) {
+        // Bloquear si ya hay 10 seleccionados y se intenta agregar otro
+        if (prev.length >= 10) return prev;
+        return [...prev, value]; // Agregar nueva selección
+      } else {
+        return prev.filter((item) => item !== value); // Quitar selección si se desmarca
+      }
+    });
   };
 
   // Aplicar filtros manualmente al hacer clic en el botón
@@ -47,8 +56,9 @@ export const AsideBar = ({ brands, tags }) => {
                 id={`brand-${index}`}
                 value={brand}
                 checked={selectedBrands.includes(brand)}
+                disabled={selectedBrands.length>=10 && !selectedBrands.includes(brand)}
                 onChange={(e) => handleCheckboxChange(e, setSelectedBrands)}
-                className="rounded-full h-5 w-5 accent-green"
+                className="rounded-full h-5 w-5 accent-green disabled:opacity-50"
               />
               <label htmlFor={`brand-${index}`} className="decoration-none w-3/4 px-2 py-1 text-lg font-md text-brownn">
                 {brand}
@@ -70,7 +80,7 @@ export const AsideBar = ({ brands, tags }) => {
                 value={tag}
                 checked={selectedTags.includes(tag)}
                 onChange={(e) => handleCheckboxChange(e, setSelectedTags)}
-                className="rounded-full h-5 w-5 accent-green"
+                className="rounded-full h-5 w-5 accent-green disabled:opacity-50"
               />
               <label htmlFor={`tag-${index}`} className="decoration-none w-3/4 px-2 py-1 text-lg font-md text-brownn">
                 {tag}

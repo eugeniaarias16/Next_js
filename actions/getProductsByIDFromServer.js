@@ -12,7 +12,7 @@ export async function getProductById(productId) {
         //  `productId` a número si el campo `id` en Firestore es un número
         const numericProductId = Number(productId); 
 
-        console.log("🔍 Buscando producto con ID:", numericProductId);
+        console.log("Buscando producto con ID:", numericProductId);
 
         const productsCollection = collection(db, "products");
         const q = query(productsCollection, where("id", "==", numericProductId)); 
@@ -34,7 +34,7 @@ export async function getProductById(productId) {
         return productData;
 
     } catch (error) {
-        console.error("❌ Error al obtener el producto:", error);
+        console.error(" Error al obtener el producto:", error);
         return null;
     }
 }

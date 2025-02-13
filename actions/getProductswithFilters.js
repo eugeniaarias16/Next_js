@@ -7,7 +7,7 @@ export const getProductswithFilters = async (filters = {}, limitResults = 10, br
 
         let filtersArray = []; // lista de condiciones WHERE
 
-        // 🔹 Recorrer los filtros dinámicamente
+        // Recorrer los filtros dinámicamente
         Object.keys(filters).forEach((key) => {
             const value = filters[key];
 
@@ -20,7 +20,7 @@ export const getProductswithFilters = async (filters = {}, limitResults = 10, br
             }
         });
 
-        // 🔹 Manejar filtrado de brands (Firestore solo permite "in" con <= 10 elementos)
+        // Manejar filtrado de brands (Firestore solo permite "in" con <= 10 elementos)
         let allProducts = [];
 
         if (brands.length > 0) {
@@ -35,13 +35,13 @@ export const getProductswithFilters = async (filters = {}, limitResults = 10, br
                 allProducts.push(...snapshot.docs.map((doc) => ({ idFirestore: doc.id, ...doc.data() })));
             }
         } else {
-            // 🔹 Si no hay marcas, ejecutar la consulta general
+            // Si no hay marcas, ejecutar la consulta general
             let productsQuery = query(productsCollection, ...filtersArray, limit(limitResults));
             const snapshot = await getDocs(productsQuery);
             allProducts = snapshot.docs.map((doc) => ({ idFirestore: doc.id, ...doc.data() }));
         }
 
-        // 🔹 Filtrar por tags (Firestore no permite filtrar arrays internos directamente)
+        //Filtrar por tags (Firestore no permite filtrar arrays internos directamente)
         if (tags.length > 0) {
             allProducts = allProducts.filter((product) => 
                 tags.every((tag) => product.tag_list?.includes(tag))

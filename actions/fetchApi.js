@@ -26,12 +26,12 @@ const fetchProducts = () => {
                     console.log("✅ Productos descargados y guardados en products.json");
                     resolve(productsArray);
                 } catch (error) {
-                    console.error("❌ Error al parsear JSON:", error);
+                    console.error("Error al parsear JSON:", error);
                     reject(error);
                 }
             });
         }).on("error", (err) => {
-            console.error("❌ Error en la solicitud HTTP:", err);
+            console.error("Error en la solicitud HTTP:", err);
             reject(err);
         });
     });

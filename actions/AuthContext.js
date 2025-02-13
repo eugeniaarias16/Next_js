@@ -1,5 +1,5 @@
 "use client";
-import { auth, googleProvider } from "./firebase"; 
+import { auth, googleProvider, db } from "./firebase";
 import { 
     onAuthStateChanged, 
     signInWithEmailAndPassword, 
@@ -7,6 +7,7 @@ import {
     signInWithPopup 
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export const AuthContext = createContext();
 const { Provider } = AuthContext;
@@ -16,12 +17,30 @@ export const AuthContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    //Escuchar cambios en la autenticación
+    // 🔹 Función para obtener datos de Firestore
+    const fetchUserData = async (uid) => {
+        try {
+            const userRef = doc(db, "users", uid);
+            const userDoc = await getDoc(userRef);
+
+            if (userDoc.exists()) {
+                return userDoc.data(); // Retorna los datos del usuario en Firestore
+            }
+            return {}; // Si no hay datos, retorna un objeto vacío
+        } catch (error) {
+            console.error("❌ Error al obtener datos de Firestore:", error);
+            return {};
+        }
+    };
+
+    // 🔹 Escuchar cambios en la autenticación y traer datos de Firestore
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
+                const userData = await fetchUserData(user.uid);
+
                 setLoggedIn(true);
-                setCurrentUser(user);
+                setCurrentUser({ ...user, ...userData }); // 🔹 Combinamos Auth y Firestore
             } else {
                 setLoggedIn(false);
                 setCurrentUser(null);
@@ -32,37 +51,75 @@ export const AuthContextProvider = ({ children }) => {
         return () => unsubscribe(); // Limpieza del efecto
     }, []);
 
-    // Inicio de sesión con email y contraseña
+    // 🔹 Inicio de sesión con email y contraseña
     const handleLogin = async (email, password) => {
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            const userData = await fetchUserData(user.uid);
+
+            setLoggedIn(true);
+            setCurrentUser({ ...user, ...userData }); // 🔹 Unimos los datos
+
         } catch (error) {
             console.error("❌ Error al iniciar sesión:", error.message);
         }
     };
 
-    // Inicio de sesión con Google
+    // 🔹 Inicio de sesión con Google
     const handleGoogleLogin = async () => {
         try {
-            await signInWithPopup(auth, googleProvider);
+            const userCredential = await signInWithPopup(auth, googleProvider);
+            const user = userCredential.user;
+            const userData = await fetchUserData(user.uid);
+
+            setLoggedIn(true);
+            setCurrentUser({ ...user, ...userData }); // 🔹 Unimos los datos
         } catch (error) {
             console.error("❌ Error con Google Sign-In:", error.message);
         }
     };
 
-    // Cerrar sesión
+    // 🔹 Guardar o actualizar datos en Firestore
+    const updateUserData = async (uid, newData) => {
+        try {
+            const userRef = doc(db, "users", uid);
+            await setDoc(userRef, newData, { merge: true });
+
+            setCurrentUser((prevUser) => ({
+                ...prevUser,
+                ...newData,
+            }));
+
+            console.log("✅ Datos del usuario actualizados en Firestore y AuthContext.");
+        } catch (error) {
+            console.error("❌ Error al actualizar datos del usuario:", error);
+        }
+    };
+
+    // 🔹 Cerrar sesión
     const handleLogout = async () => {
         try {
             await signOut(auth);
+            setCurrentUser(null);
+            setLoggedIn(false);
         } catch (error) {
             console.error("❌ Error al cerrar sesión:", error.message);
         }
     };
 
     return (
-        <Provider value={{ currentUser, loggedIn, loading, handleLogin, handleGoogleLogin, handleLogout }}>
+        <Provider value={{ 
+            currentUser, 
+            setCurrentUser, 
+            loggedIn, 
+            loading, 
+            handleLogin, 
+            handleGoogleLogin, 
+            handleLogout, 
+            updateUserData 
+        }}>
             {children}
         </Provider>
     );
 };
-

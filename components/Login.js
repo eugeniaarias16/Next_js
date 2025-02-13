@@ -1,42 +1,62 @@
 "use client";
 import { useContext, useState, useCallback } from "react";
-import { AuthContext } from "actions/AuthContext"; 
-
+import { useRouter } from "next/navigation"; // 🔹 Importamos useRouter
+import { AuthContext } from "actions/AuthContext";
 
 export const IsLogin = () => {
   const { handleLogin, handleGoogleLogin } = useContext(AuthContext);
+  const router = useRouter(); // Hook para redirección
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // 🔹 Alternar entre Login y Registro
+  // Alternar entre Login y Registro
   const toggleForm = () => setIsLogin(!isLogin);
 
-  // 🔹 Manejo de cambio en los inputs
+  // Manejo de cambio en los inputs
   const handleChange = (e) => {
     const { id, value } = e.target;
     if (id === "email") setEmail(value);
     if (id === "password") setPassword(value);
   };
 
-  // 🔹 Manejo del formulario
+  //Manejo del formulario
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      await handleLogin(email, password);
+      try {
+        await handleLogin(email, password); //  Iniciar sesión
+        router.push("/admin/userInformation"); //  Redirigir tras éxito
+      } catch (error) {
+        console.error("Error en el login:", error.message);
+      }
     },
-    [email, password, handleLogin]
+    [email, password, handleLogin, router]
   );
 
+//LogIn with Google
+const handleGoogle=async () => {
+  try {
+    await handleGoogleLogin(); // Iniciar sesión con Google
+    router.push("/admin/userInformation"); // Redirigir tras éxito
+  } catch (error) {
+    console.error("Error con Google Sign-In:", error.message);
+  }
+}
+
+
   return (
-    <main className="rounded-2xl w-8/10 h-7/10 border-light-brown m-auto mt-5 p-6 shadow-2xl bg-sand/30">
+    <main className="rounded-2xl w-8/10 h-8/10 border-light-brown p-6 shadow-2xl">
       {/* Título */}
-      <h2 className="w-8/10 text-[40px] m-auto gradient-ligth text-center mt-5 rounded-2xl bg-light-sand text-green font-bold py-2 shadow-md">
+      <h2 className="w-8/10 text-[40px] m-auto gradient-ligth text-center mt-7 rounded-2xl bg-light-sand text-green font-bold py-2 shadow-md">
         {isLogin ? "Log In" : "Register"}
       </h2>
 
       {/* Formulario */}
-      <form className="flex flex-col items-center mt-8 space-y-6" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col items-center mt-10 mb-10 space-y-6"
+        onSubmit={handleSubmit}
+      >
         <fieldset className="w-full">
           {/* Input de Email */}
           <div className="col-span-full sm:col-span-3">
@@ -85,7 +105,7 @@ export const IsLogin = () => {
       {/* Inicio de sesión con Google */}
       <div className="flex justify-center mt-4">
         <button
-          onClick={handleGoogleLogin}
+          onClick={()=>handleGoogle()}
           className="px-6 py-2 bg-blue-950 text-sand rounded-lg font-semibold hover:bg-gold hover:text-red-900 transition-all ease-in-out shadow-md"
         >
           Sign in with Google

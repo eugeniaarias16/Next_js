@@ -51,4 +51,85 @@ body{
   }
 
 
- 
+.bg-blur{
+  /* From https://css.glass */
+background: #ebd8c363;
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.163);
+backdrop-filter: blur(9px);
+-webkit-backdrop-filter: blur(15px);
+border: 1px solid rgba(154, 119, 78, 0.093);
+}
+
+
+
+
+/* Welcome Loader */
+.ml8 {
+  font-weight: 900;
+  font-size: 4.5em;
+  color: #d4d0c9; /* 🔹 Brown */
+  width: 6em; /* 🔹 Ajuste del ancho */
+  height: 6em;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ml8 .letters-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  height: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.ml8 .letters {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  line-height: 0.7em;
+  right: -0.12em;
+  top: -0.2em;
+}
+
+.ml8 .bang {
+  font-size: 1.4em;
+  margin-left: 8px;
+  top: auto;
+}
+
+.ml8 .circle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+
+.ml8 .circle-gold {
+  width: 6em;
+  height: 6em;
+  border: 2px dashed #eec364; /* 🔹 Gold */
+  border-radius: 3em;
+}
+
+.ml8 .circle-green {
+  width: 5em;
+  height: 5em;
+  border-radius: 3em;
+  z-index: 1;
+}
+
+.ml8 .circle-green-dashed {
+  border-radius: 3em;
+  background-color: transparent;
+  border: 2px dashed #2c4f3a87;
+  width: 5.5em;
+  height: 5.5em;
+}
