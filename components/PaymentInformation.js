@@ -9,7 +9,7 @@ export function PaymentInformation() {
 
   return (
     <main className="w-full min-h-screen p-8 flex flex-col items-center">
-      <FormPay/>
+      <FormPay handleAction={handleSave} textButton="Save Card"/>
       
     </main>
   );

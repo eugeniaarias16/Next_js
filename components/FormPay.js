@@ -4,7 +4,7 @@ import { auth, db } from "actions/firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-export const FormPay = () => {
+export const FormPay = ({ textButton, setAbleToPay}) => {
   const { currentUser, setCurrentUser, loggedIn } = useContext(AuthContext);
   const [errors, setErrors] = useState({});
   const [userCards, setUserCards] = useState([]);
@@ -99,132 +99,150 @@ export const FormPay = () => {
   // Formatear el número de tarjeta mostrando solo los últimos 4 dígitos
   const formatCardNumber = (number) => `...${number.slice(-4)}`;
 
-  const handleAction = ({ loggedIn }) => {
+  const handleAction = async () => {
+
+    //Verificar si los datos son válidos
+    if (!validateInputs()) {
+      toast.error("❌ Please fix the errors before saving.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    //Verificar si el usuario está logueado
     if (loggedIn) {
-      // Guardar la tarjeta en Firestore
-      const handleSave = async () => {
-        if (!validateInputs()) {
-          toast.error("Please fix the errors before saving.");
+      try {
+        if (!auth.currentUser?.uid) {
+          toast.error("⚠️ You must be logged in to save cards", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+          });
           return;
         }
-
-        try {
-          if (!auth.currentUser?.uid) {
-            toast.error("You must be logged in to save cards");
-            return;
-          }
-
+  
+        // Verificar si la tarjeta ya existe
+        const existingCard = userCards.find((card) => card.cardNumber === paymentInfo.cardNumber);
+  
+        if (!existingCard) {
           const newCard = {
             alias: paymentInfo.alias,
             cardNumber: paymentInfo.cardNumber,
-            lastNumbers: formatCardNumber(
-              paymentInfo.cardNumber.replace(/\s/g, "")
-            ),
+            lastNumbers: formatCardNumber(paymentInfo.cardNumber.replace(/\s/g, "")),
             cardType: paymentInfo.cardType,
             payerName: paymentInfo.payerName,
             dni: paymentInfo.dni,
             expiryDate: paymentInfo.expiryDate,
             createdAt: new Date().toISOString(),
           };
-
+  
           const updatedCards = [...userCards, newCard];
-
-          // Referencia al documento del usuario
+  
+          // Guardar en Firestore
           const userRef = doc(db, "users", auth.currentUser.uid);
-
-          // Obtener datos actuales del usuario
           const userDoc = await getDoc(userRef);
           const currentData = userDoc.exists() ? userDoc.data() : {};
-
-          // Preparar datos actualizados
-          const updatedData = {
-            ...currentData,
+  
+          await setDoc(userRef, { ...currentData, payCard: updatedCards }, { merge: true });
+  
+          // Actualizar el contexto global
+          setCurrentUser((prevUser) => ({
+            ...prevUser,
             payCard: updatedCards,
-            email: auth.currentUser.email,
-            displayName: auth.currentUser.displayName,
-            photoURL: auth.currentUser.photoURL,
-            lastUpdated: new Date().toISOString(),
-          };
-
-          // Actualizar Firestore
-          await setDoc(userRef, updatedData, { merge: true });
-
-          // Actualizar el contexto con todos los datos
-          if (setCurrentUser) {
-            setCurrentUser((prevUser) => ({
-              ...prevUser,
-              ...updatedData,
-            }));
-          }
-
-          // Actualizar estado local
+          }));
+  
           setUserCards(updatedCards);
-
-          // Resetear formulario
-          setPaymentInfo({
-            alias: "",
-            payerName: "",
-            dni: "",
-            cardType: "credit",
-            cardNumber: "",
-            expiryDate: "",
+         
+  
+          // Mostrar notificación de éxito
+          toast.success("✅ Card added successfully!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
           });
-
-          toast.success("Card added successfully!");
-
-          // Recargar datos del usuario para asegurar sincronización
-          const refreshedDoc = await getDoc(userRef);
-          if (refreshedDoc.exists()) {
-            const refreshedData = refreshedDoc.data();
-            setUserCards(refreshedData.payCard || []);
-            setAbleToPay(true);
-          }
-        } catch (error) {
-          console.error("Error saving card:", error);
-          toast.error("Error saving card information: " + error.message);
+        } else {
+          console.warn("❌ Card already exists."); 
         }
-      };
+        setAbleToPay(true); // Habilitar el pago
+  
+      } catch (error) {
+        console.error("❌ Error saving card:", error);
+        toast.error(`⚠️ Error saving card: ${error.message}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+        });
+      }
     } else {
-      const handleLocalSave = () => {
-        //  Guardar en LocalStorage
-    try{
-        Object.key(paymentInfo).forEach((key)=>{
-            sessionStorage.setItem(key,paymentInfo[key]);
-            console.log("Saved to Session Storage", key, paymentInfo[key]);
-            setAbleToPay(true);
-
-            
-        })
-
-
-    }  catch(error){
-
-    }
-    };
+      try {
+        Object.keys(paymentInfo).forEach((key) => {
+          sessionStorage.setItem(key, paymentInfo[key]);
+        });
+  
+        setAbleToPay(true);
+  
+        toast.success("✅ Card saved locally!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+        });
+  
+      } catch (error) {
+        console.error("❌ Error saving card to LocalStorage:", error);
+        toast.error("⚠️ Error saving information.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+        });
+      }
     }
   };
+  
+  
+
+  console.log(userCards);
+  const handleCardSelection = (cardNumber) => {
+ 
+    const selectedCard = userCards.find(card => card.cardNumber === cardNumber);
+    if(selectedCard){
+      setPaymentInfo({
+        alias: selectedCard.alias,
+        payerName: selectedCard.payerName,
+        dni: selectedCard.dni,
+        cardType: selectedCard.cardType,
+        cardNumber: selectedCard.cardNumber,
+        expiryDate: selectedCard.expiryDate
+    })};}
 
   return (
     <>
-      <h2 className="text-green text-3xl font-bold mb-4">
+      <h2 className="text-green text-3xl font-bold mt-4 mb-4 text-center">
         Payment Information
       </h2>
-      <div className="w-full flex h-full shadow-lg rounded-xl bg-blur">
-        <section className="w-1/4 bg-blur">
+      <div className="w-full flex h-full shadow-lg rounded-xl ">
+        <section className="w-1/4 bg-light-sand p-2">
           <h4 className="w-full text-center mt-2 text-[20px] text-brownn font-medium">
             Your Pay Cards
           </h4>
-          <div className="p-4">
+          <div className="">
             {userCards.map((card, index) => (
-              <div key={index} className="mb-4 p-3 bg-white rounded-lg shadow">
+              <button type="button"  onClick={() => handleCardSelection(card.cardNumber)}
+                key={index}
+                className="mb-4 p-3 w-full bg-white/50 rounded-lg shadow hover:scale-95 hover:transition-all ease-in-out"
+              >
                 <p className="font-bold">{card.alias}</p>
                 <p>{card.lastNumbers}</p>
                 <p className="text-sm text-gray-600">{card.cardType}</p>
-              </div>
+              </button>
             ))}
           </div>
         </section>
-        {/* Rest of your form JSX remains the same */}
+
         <section className="w-full max-w-2xl p-6">
           {/* Input Alias */}
           <div className="mb-4">
@@ -329,15 +347,19 @@ export const FormPay = () => {
               <p className="text-red-500 text-sm">{errors.expiryDate}</p>
             )}
           </div>
+          <div className="flex justify-center w-full">
 
           {/* Botón Guardar */}
           <button
-            onClick={handleAction}
-            className="mt-4 w-full bg-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-light-brown transition-all ease-in-out"
-          >
-            Save Card
+            type="button"
+            onClick={()=>handleAction(loggedIn)}
+            className=" mt-4 cursor-pointer  w-[200px] bg-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-ligth-brown/70 hover:text-green transition-all"
+            >
+            {textButton}
           </button>
+            </div>
         </section>
+
       </div>
       <ToastContainer />
     </>
