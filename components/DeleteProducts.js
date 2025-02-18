@@ -26,7 +26,7 @@ export function ClearCart() {
     <>
       <button
         onClick={() => clearCart()}
-        className="hover:text-amber-100  transform ease-in text-green text-xl w-10 h-10 m-auto"
+        className="hover:text-amber-100  transform ease-in text-green text-xl w-10 h-10 m-auto "
       >
         <IoTrashBin />
       </button>

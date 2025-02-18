@@ -1,25 +1,27 @@
-import { AsideBar } from "components/asideBar";
+import { AsideBar } from "@components/asideBar"; 
 import React from "react";
 import { getSubCategoryData } from "services/getSubCategoryData";
 
 
 export default async function SubCatLayout({ children, params }) {
-  const { "subcategory-name": subcategoryName } = params;
+  const { "subcategory-name": subcategoryName } = await params;
+  console.log("Subcategory Name:", subcategoryName);
   const { tags, brands, error } = await getSubCategoryData(subcategoryName);
+  
 
+  
   if (error) {
     return <div className="text-center text-red-500">{error}</div>;
   }
 
   return (
-    <div className="grid grid-cols-4 pt-10 min-h-screen mt-12">
-      {/* Barra de filtros */}
-      <aside className="col-start-1 col-end-2 shadow-xl bg-ligth-brown/20 h-auto p-2 rounded-2xl backdrop-blur-3xl">
-        <AsideBar tags={tags} brands={brands} />
-      </aside>
+    <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] xl:grid-cols-[auto_1fr] pt-10 min-h-screen mt-12">
+  {/* Barra de filtros */}
+  <AsideBar tags={tags} brands={brands} />
 
-      {/* Contenido principal */}
-      <main className="col-start-2 col-end-5 p-6 overflow-auto">{children}</main>
-    </div>
+  {/* Contenido principal */}
+  <main className="p-6 overflow-auto">{children}</main>
+</div>
+
   );
 }

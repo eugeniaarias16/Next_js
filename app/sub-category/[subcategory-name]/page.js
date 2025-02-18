@@ -3,22 +3,24 @@ import Cards from "components/Cards";
 import React, { Suspense } from "react";
 import ProductLoader from "@components/ProductLoader";
 
-export default async function Page({ params, searchParams }) {
-  const { "subcategory-name": subcategoryName } = params;
-
-  // Obtener filtros desde la URL
-  const brands = searchParams?.brands?.split(",") || [];
-  const tags = searchParams?.tags?.split(",") || [];
+export default async function SubCategoryPage({ params, searchParams }) {
+  // No await needed here - params is a regular object
+  const { "subcategory-name": subcategoryName } = await params;
+  
+ 
+  // Usar encadenamiento opcional para acceso seguro
+  const resolvedSearchParams = await searchParams; // Asegura que searchParams esté resuelto
+  const brands = resolvedSearchParams?.brands?.split(",") || [];
+  const tags = resolvedSearchParams?.tags?.split(",") || [];
+  
 
   console.log("Subcategory:", subcategoryName);
   console.log("Selected Brands:", brands);
   console.log("Selected Tags:", tags);
 
-   // Esperar 5 segundos antes de cargar los datos
-   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-   await delay(5000);
 
-  // Obtener datos de la subcategoría con filtros
+
+
   const { selectedSubCategory, data, error } = await getSubCategoryData(
     subcategoryName,
     brands,
@@ -36,13 +38,17 @@ export default async function Page({ params, searchParams }) {
           {selectedSubCategory.name}
         </h2>
       )}
-      <Suspense fallback={<ProductLoader/>}>
-        {/* Productos filtrados */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-          {data.map((product) => (
-            <Cards key={product.id} product={product} />
-          ))}
-        </div>
+      <Suspense fallback={<ProductLoader />}>
+      <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-6 mt-10">
+  {data.map((product) => (
+    <Cards
+      key={product.id}
+      product={product}
+      className="bg-white rounded-xl shadow-md w-full h-[300px] flex flex-col items-center overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
+    />
+  ))}
+</div>
+
       </Suspense>
     </div>
   );

@@ -3,10 +3,11 @@ import React from "react";
 import { categoriesMap } from "services/categoriesMap";
 import SliderCards from "components/SliderCards";
 import Image from "next/image";
-import { getSubCategoryData } from "services/getSubCategoryData";
+import { getTopProducts } from "@services/getTopProductsSlider";
 
 export default async function CategoryPage({ params }) {
-  const { "category-name": categoryName } = params;
+  const { "category-name": categoryName } = await  params;
+  console.log("Category name" ,categoryName);
 
   // Encuentra la categoría seleccionada
   const selectedCategory = categoriesMap.find(
@@ -22,8 +23,9 @@ export default async function CategoryPage({ params }) {
   }
 
 
-  const subCategoryData = await getSubCategoryData({selectedCategory});
-  console.log("subCate",subCategoryData);
+  const subCategoryData = await getTopProducts({selectedCategory});
+  console.log("Subcategory Data", subCategoryData);
+
 
   return (
     <div className="flex flex-col min-h-screen text-center items-center">
@@ -34,7 +36,7 @@ export default async function CategoryPage({ params }) {
       <SubCategory SubCategory={selectedCategory.SubCategory} />
 
       {/* Tablero de imágenes */}
-      <div className="w-full h-auto flex flex-col mt-20 items-center">
+      <div className="w-full h-auto flex flex-col  mt-20 items-center">
         <h2 className="text-[50px] text-light-brown bg-white/40 rounded-xl w-1/2 backdrop-blur-md">
           Real Beauty
         </h2>
@@ -60,8 +62,10 @@ export default async function CategoryPage({ params }) {
                 <Image
                   src={`/${img}.jpg`}
                   alt={`Categoría ${index + 1}`}
-                  layout="fill"
-                  objectFit="cover"
+                  fill // 
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+                  style={{ objectFit: "cover" }} 
+                  className="max-h-full max-w-full"
                 />
               </div>
             )
@@ -70,14 +74,16 @@ export default async function CategoryPage({ params }) {
       </div>
 
       {/* Render de los SliderCards */}
-      {subCategoryData.length > 0 &&
-        subCategoryData.map((subCategory) => (
-          <SliderCards
-            key={subCategory.name}
-            products={subCategory.products}
-            title={subCategory.name}
-            /* link={subCategory.link  } */
-          />
+      {subCategoryData?.selectedSubCategory?.length > 0 &&
+         subCategoryData.selectedSubCategory.map((subCategory) => (
+          subCategory.products.length > 0 && (
+            <SliderCards
+              key={subCategory.name}
+              products={subCategory.products}
+              title={`Top Rated ${subCategory.name}`}
+              /* link={subCategory.link  } */
+            />
+          )
         ))}
     </div>
   );

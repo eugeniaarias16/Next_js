@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getProductswithFilters } from 'actions/getProductswithFilters';
 
 export default async function SubCategory({ SubCategory }) {
+  console.log("subCategory", SubCategory);
   if (!SubCategory || SubCategory.length === 0) {
     return (
       <div className="text-center text-gray-500 mt-10">
@@ -12,8 +13,9 @@ export default async function SubCategory({ SubCategory }) {
       </div>
     );
   }
-
-  // Función para cargar las imágenes de cada subcategoría
+const quantityItems = SubCategory.length;
+console.log(`SubCategory length: ${quantityItems}`);
+  //  cargar las imágenes de cada subcategoría
   const fetchSubCategoryImages = async () => {
     const images = {};
 
@@ -32,35 +34,34 @@ export default async function SubCategory({ SubCategory }) {
     return images;
   };
 
-  // Esperamos que las imágenes se carguen en el servidor
+  // Esperar a que las imágenes se carguen en el servidor
   const subCategoryImages = await fetchSubCategoryImages();
 
   return (
-    <div className="w-9/10 flex  gap-4  justify-center ">
-  {SubCategory.map((item) => (
-    <Link
-      href={item.link }
-      key={item.name}
-      className="w-1/4 h-[250px] bg-light-sand rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 flex flex-col"
-    >
-      {/* Contenedor de la imagen */}
-      <div className="w-full h-[90%] bg-white flex items-center justify-center">
-        <Image
-          src={subCategoryImages[item.name] || '/placeholder-image.png'}
-          alt={item.name}
-          height={200}
-          width={200}
-          className="object-contain max-h-full max-w-full"
-        />
-      </div>
+    <div className={`lg:w-9/10 xs:w-full xs:p-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${quantityItems} gap-4 justify-center`}>
+      {SubCategory.map((item) => (
+        <Link
+          href={item.link}
+          key={item.name}
+          className="bg-light-sand rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 flex flex-col"
+        >
+          {/* Contenedor de la imagen */}
+          <div className="w-full h-[90%] bg-white flex items-center justify-center">
+            <Image
+              src={subCategoryImages[item.name] || '/placeholder-image.png'}
+              alt={item.name}
+              height={200}
+              width={200}
+              className="object-contain max-h-full max-w-full"
+            />
+          </div>
 
-      {/* Título */}
-      <h3 className="text-center text-sand font-semibold h-[10%] w-full flex items-center justify-center bg-green">
-        {item.name}
-      </h3>
-    </Link>
-  ))}
-</div>
-
+          {/* Título */}
+          <h3 className="text-center text-sand font-semibold h-[10%] w-full flex items-center justify-center bg-green">
+            {item.name}
+          </h3>
+        </Link>
+      ))}
+    </div>
   );
 }

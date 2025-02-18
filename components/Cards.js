@@ -6,13 +6,13 @@ import { generateStars, generatePrice } from "services/generateStars";
 
 
 
-export default function Cards({ product }) {
+export default function Cards({ product,className="  bg-white rounded-xl shadow-md w-[200px] flex-none h-[300px] flex flex-col items-center overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl" }) {
   
   return (
     <Link
       key={product.id}
       href={`/product/${product.id}`}
-      className="  bg-white rounded-xl shadow-md w-[200px] flex-none h-[300px] flex flex-col items-center overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
+      className={className}
     >
       {/* Imagen del Producto */}
       <div className="image-container relative w-[150px] h-[150px] overflow-hidden flex items-center justify-center">

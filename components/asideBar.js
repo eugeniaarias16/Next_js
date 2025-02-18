@@ -1,6 +1,8 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IoMdClose } from "react-icons/io"; 
+
 
 export const AsideBar = ({ brands, tags }) => {
   const router = useRouter();
@@ -41,7 +43,23 @@ export const AsideBar = ({ brands, tags }) => {
     router.push(`?${newParams.toString()}`, { scroll: false });
   };
 
+
+  // Renderizar la barra lateral de filtros
+  const [showFilters, setShowFilters] = useState(false);
+
   return (
+    <>
+     <button className="xl:hidden h-[50px] flex justify-center items-center  max-w-[80px] p-2 text-xl bg-ligth-brown/40 border-green/40 border-1 hover:bg-gold hover:text-red-950 hover:scale-95 hover:transition-all  shadow-2xl mb-2 rounded-xl text-green" onClick={()=>setShowFilters(!showFilters)}>
+      {showFilters?<IoMdClose size={28}/>:"Filters"}
+      </button> 
+
+    <aside className={ `
+      ${showFilters?"block":"hidden"}
+      xs:col-start-1 xs:col-end-[-1]
+      lg:col-start-1 lg:col-end-3
+      xl:block xl:col-start-1 xl:col-end-2
+       shadow-xl bg-ligth-brown/20 h-auto p-2 rounded-2xl backdrop-blur-3xl`}>
+
     <form className="w-full p-2.5 flex flex-col flex-wrap mt-20">
       <h3 className="w-full text-center text-3xl text-green font-bold">Filters</h3>
 
@@ -99,5 +117,8 @@ export const AsideBar = ({ brands, tags }) => {
         Apply Filters
       </button>
     </form>
+    </aside>
+    </>
+
   );
 };

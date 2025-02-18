@@ -7,6 +7,13 @@
   --color-ligth-brown: #b48c5c;
   --color-brownn: #362e2c;
   --color-green: #2C4F3A;
+ 
+  --breakpoint-xxl: 1070px;
+  --breakpoint-xl: 840px;
+  --breakpoint-lg: 640px;
+  --breakpoint-md: 540px;
+  --breakpoint-sm: 440px;
+  --breakpoint-xs: 340px;
   
 }
 
@@ -61,7 +68,9 @@ backdrop-filter: blur(9px);
 border: 1px solid rgba(154, 119, 78, 0.093);
 }
 
-
+.backdrop-custom {
+  backdrop-filter: blur(150px);
+}
 
 
 /* Welcome Loader */

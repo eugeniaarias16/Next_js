@@ -7,7 +7,7 @@ export default function ByCategory() {
   
 
   return (
-    <div className="grid grid-cols-2 gap-5 p-5 bg-color-light-sand">
+    <div className="grid sm:grid-cols-2 gap-5 p-5 bg-color-light-sand">
       {categoriesMap.map((category) => (
         <div
           key={category.id}

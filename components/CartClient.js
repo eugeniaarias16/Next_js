@@ -13,7 +13,7 @@ export function CartClient() {
   return (
     <>
       {/* 🛒 Items en el carrito */}
-      <section className="w-full flex flex-wrap gap-2 justify-center">
+      <section className="xs:w-full  flex flex-wrap gap-2 justify-center">
         <div className="w-full flex flex-wrap gap-2 justify-center pt-5 ">
           {cartStore.map((item) => (
             <CartItems item={item} key={item.id} />

@@ -2,6 +2,7 @@ import { db } from "./firebase";
 import { collection, getDocs, query, where, limit } from "firebase/firestore";
 
 export const getProductswithFilters = async (filters = {}, limitResults = 10, brands = [], tags = []) => {
+    
     try {
         const productsCollection = collection(db, "products"); // Referencia a la colección
 
@@ -12,10 +13,10 @@ export const getProductswithFilters = async (filters = {}, limitResults = 10, br
             const value = filters[key];
 
             if (typeof value === "object" && value.operator && value.value !== undefined) {
-                // 🔹 Filtrar por operadores personalizados (Ej: rating >= 4.5)
+                //  Filtrar por operadores personalizados (Ej: rating >= 4.5)
                 filtersArray.push(where(key, value.operator, value.value));
             } else if (value !== undefined && value !== null && value !== "") {
-                // 🔹 Filtrar exacto (Ej: product_type == "lipstick")
+                //  Filtrar exacto (Ej: product_type == "lipstick")
                 filtersArray.push(where(key, "==", value));
             }
         });
@@ -48,7 +49,6 @@ export const getProductswithFilters = async (filters = {}, limitResults = 10, br
             );
         }
 
-        console.log("✅ Productos filtrados:", allProducts);
         return allProducts;
 
     } catch (error) {
