@@ -1,6 +1,6 @@
 import "./globals.css";
-import NavBar from "components/NavBar";
-import { AuthContextProvider } from "actions/AuthContext";
+import NavBar from "@/components/NavBar";
+import { AuthContextProvider } from "@/actions/AuthContext";
 
 export const metadata = {
   title: {

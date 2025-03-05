@@ -1,7 +1,7 @@
 import React from "react";
 import ByCategory from "./ByCategory";
 import SliderCards from "./SliderCards";
-import { getProductswithFilters } from "actions/getProductswithFilters";
+import { getProductswithFilters } from "@/actions/getProductswithFilters"; 
 export default async function Main() {
   /* const { Top20RatedProducts, TopLipstick, TopMascaras } = await mainApiCalls(); */
 

@@ -1,7 +1,7 @@
-import { getSubCategoryData } from "services/getSubCategoryData";
-import Cards from "components/Cards";
+import { getSubCategoryData } from "@/services/getSubCategoryData";
+import Cards from "@/components/Cards";
 import React, { Suspense } from "react";
-import ProductLoader from "@components/ProductLoader";
+import ProductLoader from "@/components/ProductLoader";
 
 export default async function SubCategoryPage({ params, searchParams }) {
   // No await needed here - params is a regular object

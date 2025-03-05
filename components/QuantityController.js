@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useCartStore } from "services/cartStore";
+import { useCartStore } from "@/services/cartStore";
 
 export function QuantityController({ item, className = " " }) {
   const cartStore = useCartStore((state) => state.cartStore);

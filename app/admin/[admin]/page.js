@@ -1,7 +1,7 @@
-import { MembershipInformation } from "@components/MembershipInformation";
-import { PaymentInformation } from "@components/PaymentInformation";
-import { PurchaseInformation } from "@components/PurchaseInformation";
-import { UserInformation } from "@components/UserInformation";
+import { MembershipInformation } from "@/components/MembershipInformation";
+import { PaymentInformation } from "@/components/PaymentInformation";
+import { PurchaseInformation } from "@/components/PurchaseInformation";
+import { UserInformation } from "@/components/UserInformation";
 
 export default async function AdminSection({ params }) {
   const { admin } = await params; // Captura el nombre de la ruta dinámica

@@ -1,4 +1,4 @@
-import { LoaderComponent } from "@components/LoaderComponent";
+import { LoaderComponent } from "@/components/LoaderComponent";
 import React from "react";
 
 

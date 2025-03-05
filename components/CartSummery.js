@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useCartStore } from "services/cartStore";
+import { useCartStore } from "@/services/cartStore";
 
 export default function CartSummery() {
   const { cartStore } = useCartStore();

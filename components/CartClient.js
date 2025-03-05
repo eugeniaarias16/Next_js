@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { useCartStore } from "services/cartStore";
-import CartItems from "components/CartItems";
+import { useCartStore } from "@/services/cartStore";
+import CartItems from "@/components/CartItems";
 
 export function CartClient() {
   const { cartStore } = useCartStore(); // Estado global con persistencia

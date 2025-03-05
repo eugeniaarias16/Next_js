@@ -1,5 +1,5 @@
 import React from 'react'
-import { CheckUserData } from '@components/CheckUserData'
+import { CheckUserData } from '@/components/CheckUserData'
 
 export default function PaymentPage() {
   return (

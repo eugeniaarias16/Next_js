@@ -9,8 +9,7 @@ const nextConfig = {
       },
     ],
   },
-  reactStrictMode: true, // Activa el modo estricto de React para detectar problemas comunes
-  swcMinify: true, // Optimiza el código para producción usando SWC
+  reactStrictMode: true, 
 };
 
 export default nextConfig;

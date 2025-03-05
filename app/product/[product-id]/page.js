@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
-import { normalizeImageUrl } from "services/normalizeImageUrl";
-import { generateStars } from "services/generateStars";
-import { generatePrice } from "services/generateStars"; //
-import { QuantityController } from "components/QuantityController";
-import { ColorCollapse } from "components/Colors";
-import { ProductDescriptionCollapse } from "components/ProductDescription";
-import { getProductById } from "actions/getProductsByIDFromServer";
-import { ButtonNavigation } from "@components/ButtonNavigation";
+import { normalizeImageUrl } from "@/services/normalizeImageUrl";
+import { generateStars } from "@/services/generateStars";
+import { generatePrice } from "@/services/generateStars"; //
+import { QuantityController } from "@/components/QuantityController";
+import { ColorCollapse } from "@/components/Colors";
+import { ProductDescriptionCollapse } from "@/components/ProductDescription";
+import { getProductById } from "@/actions/getProductsByIDFromServer";
+import { ButtonNavigation } from "@/components/ButtonNavigation";
 
 export default async function Product({ params }) {
 

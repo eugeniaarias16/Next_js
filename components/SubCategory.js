@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
-import { normalizeImageUrl } from 'services/normalizeImageUrl';
+import { normalizeImageUrl } from '@/services/normalizeImageUrl';
 import Link from 'next/link';
-import { getProductswithFilters } from 'actions/getProductswithFilters';
+import { getProductswithFilters } from '@/actions/getProductswithFilters';
 
 export default async function SubCategory({ SubCategory }) {
   console.log("subCategory", SubCategory);

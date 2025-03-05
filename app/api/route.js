@@ -1,4 +1,4 @@
-import { db } from "@/firebase"
+import { db } from "@/actions/firebase"
 import { collection, getDocs, where, query, addDoc } from "firebase/firestore"
 import { NextResponse } from "next/server"
 

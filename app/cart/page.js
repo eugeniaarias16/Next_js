@@ -1,8 +1,7 @@
-import { CartClient } from "components/CartClient";
+import { CartClient } from "@/components/CartClient";
 import React from "react";
-import CartSummery from "components/CartSummery";
-import { IoTrashBin } from "react-icons/io5";
-import { ClearCart } from "components/DeleteProducts";
+import CartSummery from "@/components/CartSummery";
+import { ClearCart } from "@/components/DeleteProducts";
 
 export default function CartPage() {
   return (

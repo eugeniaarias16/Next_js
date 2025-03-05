@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@services/*": ["services/*"],
-      "@components/*": ["components/*"]
+      "@/*": ["./src/*", "./*"],
+      "@components/*": ["./components/*"],
+      "actions/*": ["./actions/*"]
     }
   }
 }

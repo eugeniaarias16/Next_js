@@ -1,5 +1,5 @@
-import { getProductswithFilters } from "actions/getProductswithFilters";
-import { categoriesMap } from "services/categoriesMap";
+import { getProductswithFilters } from "@/actions/getProductswithFilters";
+import { categoriesMap } from "@/services/categoriesMap";
 
 export async function getSubCategoryData(subcategoryName, brands = [], tags = []) {
   let error = null; // ✅ Definir error desde el inicio

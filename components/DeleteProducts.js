@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { IoTrashBin } from "react-icons/io5";
-import { useCartStore } from "services/cartStore";
+import { useCartStore } from "@/services/cartStore";
 
 export function DeleteProductsSection({ item }) {
   const { deleteFromCart } = useCartStore();

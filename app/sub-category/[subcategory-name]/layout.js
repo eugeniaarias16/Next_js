@@ -1,6 +1,6 @@
-import { AsideBar } from "@components/asideBar"; 
+import { AsideBar } from "@/components/asideBar"; 
 import React from "react";
-import { getSubCategoryData } from "services/getSubCategoryData";
+import { getSubCategoryData } from "@/services/getSubCategoryData";
 
 
 export default async function SubCatLayout({ children, params }) {

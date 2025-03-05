@@ -1,6 +1,6 @@
-import Footer from "components/Footer";
-import Main from "components/Main";
-import { Banner } from "components/Banner";
+import Footer from "@/components/Footer";
+import Main from "@/components/Main";
+import { Banner } from "@/components/Banner";
 
 
 export default async  function Home() {

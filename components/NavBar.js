@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link"; 
 import React, { useState } from "react";
-import { categoriesMap } from "services/categoriesMap";
+import { categoriesMap } from "@/services/categoriesMap";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { FaUserCircle } from "react-icons/fa";
 import { PiBehanceLogoFill } from "react-icons/pi";

@@ -1,9 +1,9 @@
-import SubCategory from "components/SubCategory";
+import SubCategory from "@/components/SubCategory";
 import React from "react";
-import { categoriesMap } from "services/categoriesMap";
-import SliderCards from "components/SliderCards";
+import { categoriesMap } from "@/services/categoriesMap";
+import SliderCards from "@/components/SliderCards";
 import Image from "next/image";
-import { getTopProducts } from "@services/getTopProductsSlider";
+import { getTopProducts } from "@/services/getTopProductsSlider";
 
 export default async function CategoryPage({ params }) {
   const { "category-name": categoryName } = await  params;

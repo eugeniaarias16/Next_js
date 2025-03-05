@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import { normalizeImageUrl } from "services/normalizeImageUrl";
-import { QuantityController } from "./QuantityController";
+import { normalizeImageUrl } from "@/services/normalizeImageUrl";
+import { QuantityController } from "./QuantityController"; 
 import { DeleteProductsSection } from "./DeleteProducts";
 
 export default function CartItems({ item }) {
