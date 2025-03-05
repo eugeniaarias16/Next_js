@@ -1,0 +1,24 @@
+[33m6c01aba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Corrige todas las rutas de importación
+[33meba8fac[m Corrige todas las rutas de importación
+[33m09a9535[m Corrige ruta de importación para firebase
+[33m5d6bee9[m Corrige configuración para Vercel
+[33m2231369[m Merge branch 'main' of https://github.com/eugeniaarias16/Next_js
+[33md43dec6[m Update jsconfig.json
+[33m604c9d5[m -nextConfig solucion problema swcMinify
+[33mf2eb741[m Update jsconfig.json
+[33m9ccd657[m entrega final
+[33m6c013af[m CheckUserData complete
+[33m929a068[m checkUserDatav1.1
+[33me0d0cb2[m subcategory filter
+[33m7ca5b1a[m Auth Provider y Log In terminado
+[33m99e19dd[m llamada a base de datos firebase, y actualizacion del carrito de compras
+[33mf87d2ec[m descarga del json (api externa) y subida del mismo a firebase
+[33m7ee13d4[m carrito de compra terminado
+[33m99806ec[m cartSummary, sub-category
+[33m3a7309e[m Revertir cambios y restaurar configuración original
+[33me86be90[m Merge branch 'main' of https://github.com/eugeniaarias16/Next_js git add .# the commit.
+[33m0878f39[m sub-category, modificacion de SliderCards, Cardsgit commit
+[33m461618a[m Delete CNAME
+[33mc98fe17[m Create CNAME
+[33mc284f6d[m first commit
+[33m6416fc7[m first commit
